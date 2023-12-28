@@ -717,3 +717,30 @@ $$
 LANGUAGE plpgsql;
 
 
+
+select * from search_state('bi');
+
+CREATE OR REPLACE FUNCTION search_state(input_text VARCHAR)
+RETURNS setof lgd.state 
+LANGUAGE plpgsql
+as $BODY$
+DECLARE
+    condition_text VARCHAR := '';
+   -- word_array VARCHAR[];
+BEGIN
+    
+    CREATE TABLE temp_table AS lgd.state;
+        
+    FOR condition_text IN
+         SELECT ARRAY(SELECT regexp_split_to_table(input_text, '\s+'))
+    LOOP
+
+    RAISE  NOTICE 'condition_text-> %', condition_text ;
+    insert into temp_table select * from lgd.state where state_name_english ilike '%'||condition_text||'%';
+    END LOOP;
+
+    RETURN query select * from temp_table;
+END;
+$BODY$
+
+
