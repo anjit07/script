@@ -744,3 +744,30 @@ END;
 $BODY$
 
 
+CREATE OR REPLACE FUNCTION public.generate_ilike_condition(
+	input_text character varying)
+    RETURNS character varying
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE
+    condition_text VARCHAR := '';
+    word_array VARCHAR[];
+BEGIN
+    -- Step 1: Split the input text into an array of words
+    SELECT ARRAY(SELECT regexp_split_to_table(input_text, '\s+')) INTO word_array;
+
+    -- Step 2: Construct the ILIKE condition
+    FOR i IN 1..array_length(word_array, 1) LOOP
+        condition_text := condition_text || 'cd_code ILIKE ' || quote_literal('%' || word_array[i] || '%');
+        IF i < array_length(word_array, 1) THEN
+            condition_text := condition_text || ' OR ';
+        END IF;
+    END LOOP;
+
+    RETURN condition_text;
+END;
+$BODY$;
+
+
