@@ -28,5 +28,22 @@ class ChunckFile:
             break
 
     return unique_results
-
+    
+    def get_processed_document_name(persist_directory):
+    # Load the vector store to retrieve document IDs
+    vectorstore = Chroma(
+            persist_directory=persist_directory,
+            embedding_function=embeddings
+        )
+        
+    # Extract metadata from all documents in the store
+    all_metadatas = vectorstore.get()["metadatas"]
+    
+    # Create a set of source file paths from metadata
+    processed_sources = set()
+    for metadata in all_metadatas:
+        if metadata and "source" in metadata:
+            processed_sources.add(metadata["source"])
+    
+    return processed_sources
 
