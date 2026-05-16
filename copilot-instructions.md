@@ -1,40 +1,39 @@
-# Project Instructions
+# Copilot Instructions
 
-Spring Boot backend service.
+Understand existing implementation before generating code.
+Follow existing package structure, naming, and coding style.
 
-## Tech Stack
-- Java 17
-- Spring Boot 3
-- Spring Security
-- Spring Data JPA
-- Maven
-- PostgreSQL
-- Redis
-- JUnit 5
-- Mockito
+Architecture:
+resolver -> service -> processor -> client
 
-## Architecture
-- layered architecture
-- controller -> service -> repository
-- dto based request/response
-- global exception handling
-- api first design
+Rules:
+- resolver: GraphQL mapping only
+- service: orchestration only
+- processor: business logic only
+- client: downstream calls only
 
-## Mandatory Rules
-- preserve existing behavior
-- follow current project patterns
-- generate production ready code
-- prefer minimal code changes
-- use existing utilities before creating new
-- avoid duplicate logic
-- prioritize readability
-- prioritize maintainability
-- prioritize security
-- add tests when modifying business logic
+Standards:
+- use constructor injection
+- use final fields
+- use lombok where applicable
+- reuse existing classes/utilities/constants
+- keep methods small and single responsibility
+- validate all inputs
+- handle null safely
+- use custom exceptions only
+- log failures and key business events
+- never hardcode literals
+- keep graphql schema in resources/schema
+- keep graphql queries in resources/graphql-query
+- write unit tests for new business logic
 
-## Never
-- never expose entity in controller
-- never use field injection
-- never hardcode secrets
-- never suppress exceptions
-- never break backward compatibility
+Avoid:
+- duplicate code
+- deep nesting
+- unnecessary classes
+- changing unrelated code
+- breaking existing behavior
+- introducing new frameworks
+
+Always generate production-ready, readable, testable code.
+Prefer minimal safe changes.
