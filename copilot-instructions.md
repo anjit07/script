@@ -1,8 +1,8 @@
-# Project Context
+# Project Instructions
 
-This is a Java Spring Boot application.
+Spring Boot backend service.
 
-## Stack
+## Tech Stack
 - Java 17
 - Spring Boot 3
 - Spring Security
@@ -10,37 +10,31 @@ This is a Java Spring Boot application.
 - Maven
 - PostgreSQL
 - Redis
-- Kafka
 - JUnit 5
 - Mockito
 
 ## Architecture
-- Layered architecture
+- layered architecture
 - controller -> service -> repository
-- DTO based communication
-- centralized exception handling
-- REST API design
+- dto based request/response
+- global exception handling
+- api first design
 
-## Global Rules
-- Follow SOLID.
-- Write production-ready code.
-- Keep code readable.
-- Use constructor injection.
-- Avoid field injection.
-- Never expose entity directly.
-- Use DTO for APIs.
-- Validate request.
-- Handle exception centrally.
-- Add logging.
-- Secure endpoints.
-- Write unit test for new service.
-- Preserve existing behavior.
-- Prefer minimal changes.
-- Follow existing code style.
+## Mandatory Rules
+- preserve existing behavior
+- follow current project patterns
+- generate production ready code
+- prefer minimal code changes
+- use existing utilities before creating new
+- avoid duplicate logic
+- prioritize readability
+- prioritize maintainability
+- prioritize security
+- add tests when modifying business logic
 
-## When generating code
-- Prioritize maintainability.
-- Prioritize security.
-- Prioritize performance.
-- Avoid unnecessary abstraction.
-- Use existing project patterns.
+## Never
+- never expose entity in controller
+- never use field injection
+- never hardcode secrets
+- never suppress exceptions
+- never break backward compatibility
